@@ -1,3 +1,14 @@
+variable "ROOT_AWS_ACCESS_KEY" {
+  description = "AWS Access Key for the Root Account"
+  type        = string
+}
+
+variable "ROOT_AWS_SECRET_ACCESS_KEY" {
+  description = "AWS Secret Access Key for the Root Account"
+  type        = string
+}
+
+
 variable "create_certificate" {
   description = "Whether to create ACM certificate"
   type        = bool
