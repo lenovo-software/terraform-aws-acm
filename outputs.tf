@@ -1,6 +1,9 @@
-output "this_acm_certificate_arn" {
+output "this_acm_certificate_arns" {
   description = "The ARN of the certificate"
-  value       = element(concat(aws_acm_certificate.this.*.arn, [""]), 0)
+  value       = [
+    element(concat(aws_acm_certificate.this.*.arn, [""]), 0),
+    element(concat(region_aws_acm_certificate.this.*.arn, [""]), 0)
+  ]
 }
 
 output "this_acm_certificate_domain_validation_options" {
