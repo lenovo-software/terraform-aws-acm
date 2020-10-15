@@ -94,7 +94,7 @@ resource "aws_route53_record" "region_validation" {
 
   allow_overwrite = var.validation_allow_overwrite_records
 
-  depends_on = [region_aws_acm_certificate.this]
+  depends_on = [aws_acm_certificate.region_this]
 
   provider = aws.lenovosoftware
 }
