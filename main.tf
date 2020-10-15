@@ -102,7 +102,7 @@ resource "aws_route53_record" "region_validation" {
 resource "aws_acm_certificate_validation" "region_this" {
   count = var.create_certificate && var.validation_method == "DNS" && var.validate_certificate && var.wait_for_validation && !var.in_us_east ? 1 : 0
 
-  certificate_arn = region_aws_acm_certificate.this[0].arn
+  certificate_arn = aws_acm_certificate.region_this[0].arn
 
-  validation_record_fqdns = region_aws_route53_record.validation.*.fqdn
+  validation_record_fqdns = aws_route53_record.region_validation.*.fqdn
 }
