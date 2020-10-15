@@ -62,7 +62,7 @@ resource "aws_acm_certificate_validation" "this" {
 # MUTLI REGION SUPPORT
 #############################
 
-resource "region_aws_acm_certificate" "this" {
+resource "aws_acm_certificate" "region_this" {
   count = var.create_certificate  && !var.in_us_east ? 1 : 0
 
   domain_name               = var.domain_name
@@ -80,7 +80,7 @@ resource "region_aws_acm_certificate" "this" {
   }
 }
 
-resource "region_aws_route53_record" "validation" {
+resource "aws_route53_record" "region_validation" {
   count = var.create_certificate && var.validation_method == "DNS" && var.validate_certificate && !var.in_us_east ? length(local.distinct_domain_names) + 1 : 0
 
   zone_id = var.zone_id
@@ -99,7 +99,7 @@ resource "region_aws_route53_record" "validation" {
   provider = aws.lenovosoftware
 }
 
-resource "aws_acm_certificate_validation" "this" {
+resource "aws_acm_certificate_validation" "region_this" {
   count = var.create_certificate && var.validation_method == "DNS" && var.validate_certificate && var.wait_for_validation && !var.in_us_east ? 1 : 0
 
   certificate_arn = region_aws_acm_certificate.this[0].arn
