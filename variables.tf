@@ -74,3 +74,9 @@ variable "dns_ttl" {
   type        = number
   default     = 60
 }
+
+variable "in_us_east" {
+  type        = bool
+  description = "AWS Region."
+  default     = true
+}
