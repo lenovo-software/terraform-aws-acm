@@ -8,6 +8,16 @@ variable "ROOT_AWS_SECRET_ACCESS_KEY" {
   type        = string
 }
 
+variable "deploy_role_arn" {
+  type        = string 
+  description = "IAM service role arn used by AWS provider."
+}
+
+variable "region" {
+  type        = string
+  description = "AWS Region."
+}
+
 
 variable "create_certificate" {
   description = "Whether to create ACM certificate"
