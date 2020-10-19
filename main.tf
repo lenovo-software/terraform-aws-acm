@@ -1,11 +1,4 @@
-provider "aws" {
-  region     = "us-east-1"
-  alias      = "lenovosoftware"
-  access_key = var.ROOT_AWS_ACCESS_KEY
-  secret_key = var.ROOT_AWS_SECRET_ACCESS_KEY
-}
-
-# the account where the environment will live
+# the account/region where CloudFront certs will live
 provider "aws" {
   version = "~> 2.0"
   region = "us-east-1"
@@ -15,7 +8,7 @@ provider "aws" {
   alias      = "local_account_us_east"
 }
 
-# the account where the environment will live
+# the account/region where the environment will live
 provider "aws" {
   version = "~> 2.0"
   region = var.region
@@ -25,6 +18,13 @@ provider "aws" {
   alias      = "local_account_regional"
 }
 
+# the root account
+provider "aws" {
+  region     = "us-east-1"
+  alias      = "lenovosoftware"
+  access_key = var.ROOT_AWS_ACCESS_KEY
+  secret_key = var.ROOT_AWS_SECRET_ACCESS_KEY
+}
 
 locals {
   // Get distinct list of domains and SANs
