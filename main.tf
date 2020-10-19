@@ -2,7 +2,7 @@
 provider "aws" {
   version = "~> 2.0"
   region = "us-east-1"
-  alias      = "local_account_regional"
+  alias      = "local_account_us_east"
   assume_role {
     role_arn = var.deploy_role_arn
   }
