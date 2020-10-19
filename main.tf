@@ -29,6 +29,8 @@ resource "aws_acm_certificate" "this" {
   lifecycle {
     create_before_destroy = true
   }
+
+  provider = aws.lenovosoftware
 }
 
 resource "aws_route53_record" "validation" {
@@ -56,6 +58,8 @@ resource "aws_acm_certificate_validation" "this" {
   certificate_arn = aws_acm_certificate.this[0].arn
 
   validation_record_fqdns = aws_route53_record.validation.*.fqdn
+
+  provider = aws.lenovosoftware
 }
 
 #############################
