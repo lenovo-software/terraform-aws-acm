@@ -2,20 +2,21 @@
 provider "aws" {
   version = "~> 2.0"
   region = "us-east-1"
+  alias      = "local_account_regional"
   assume_role {
     role_arn = var.deploy_role_arn
   }
-  alias      = "local_account_us_east"
 }
 
 # the account/region where the environment will live
 provider "aws" {
   version = "~> 2.0"
   region = var.region
+  alias      = "local_account_regional"
   assume_role {
     role_arn = var.deploy_role_arn
   }
-  alias      = "local_account_regional"
+  
 }
 
 # the root account

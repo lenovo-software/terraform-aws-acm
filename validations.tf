@@ -1,7 +1,7 @@
 resource "aws_route53_record" "validation" {
   count = var.create_certificate && var.validation_method == "DNS" && var.validate_certificate ? length(local.distinct_domain_names) + 1 : 0
 
-  zone_id = var.zone_id
+  zone_id = data.aws_route53_zone.default.zone_id
   name    = element(local.validation_domains, count.index)["resource_record_name"]
   type    = element(local.validation_domains, count.index)["resource_record_type"]
   ttl     = var.dns_ttl
@@ -35,7 +35,7 @@ resource "aws_acm_certificate_validation" "this" {
 resource "aws_route53_record" "region_validation" {
   count = var.create_certificate && var.validation_method == "DNS" && var.validate_certificate && !var.in_us_east ? length(local.distinct_domain_names) + 1 : 0
 
-  zone_id = var.zone_id
+  zone_id = data.aws_route53_zone.default.zone_id
   name    = element(local.validation_domains, count.index)["resource_record_name"]
   type    = element(local.validation_domains, count.index)["resource_record_type"]
   ttl     = var.dns_ttl
