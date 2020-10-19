@@ -90,3 +90,11 @@ variable "in_us_east" {
   description = "AWS Region."
   default     = true
 }
+
+##########################
+# ACM variables
+##########################
+variable "hosted_zone" {
+  type        = string
+  description = "LenovoSoftware.com Route 53 name "
+}
