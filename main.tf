@@ -5,6 +5,27 @@ provider "aws" {
   secret_key = var.ROOT_AWS_SECRET_ACCESS_KEY
 }
 
+# the account where the environment will live
+provider "aws" {
+  version = "~> 2.0"
+  region = "us-east-1"
+  assume_role {
+    role_arn = var.deploy_role_arn
+  }
+  alias      = "local_account_us_east"
+}
+
+# the account where the environment will live
+provider "aws" {
+  version = "~> 2.0"
+  region = "us-east-1"
+  assume_role {
+    role_arn = var.deploy_role_arn
+  }
+  alias      = "local_account_regional"
+}
+
+
 locals {
   // Get distinct list of domains and SANs
   distinct_domain_names = distinct(concat([var.domain_name], [for s in var.subject_alternative_names : replace(s, "*.", "")]))
@@ -30,7 +51,7 @@ resource "aws_acm_certificate" "this" {
     create_before_destroy = true
   }
 
-  provider = aws.lenovosoftware
+  provider = aws.local_account_us_east
 }
 
 resource "aws_route53_record" "validation" {
@@ -82,6 +103,8 @@ resource "aws_acm_certificate" "region_this" {
   lifecycle {
     create_before_destroy = true
   }
+
+  provider = aws.local_account_regional
 }
 
 resource "aws_route53_record" "region_validation" {
@@ -109,4 +132,6 @@ resource "aws_acm_certificate_validation" "region_this" {
   certificate_arn = aws_acm_certificate.region_this[0].arn
 
   validation_record_fqdns = aws_route53_record.region_validation.*.fqdn
+
+  provider = aws.lenovosoftware
 }
