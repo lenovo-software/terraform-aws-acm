@@ -18,7 +18,7 @@ provider "aws" {
 # the account where the environment will live
 provider "aws" {
   version = "~> 2.0"
-  region = "us-east-1"
+  region = var.region
   assume_role {
     role_arn = var.deploy_role_arn
   }
