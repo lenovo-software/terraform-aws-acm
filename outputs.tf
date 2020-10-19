@@ -1,3 +1,9 @@
+output "ls_hosted_zone_id" {
+  description = "lenovosoftware.com hosted zone id"
+  value       = data.aws_route53_zone.default.zone_id
+}
+
+
 output "this_acm_certificate_arns" {
   description = "The ARN of the certificate"
   value       = [
